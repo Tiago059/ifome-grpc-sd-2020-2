@@ -1,0 +1,32 @@
+syntax = "proto3";
+
+package ifome;
+
+message ItemCardapio {
+    string descricao = 1;
+    double preco = 2;
+}
+
+message ListaDeItensDoCardapio {
+    repeated ItemCardapio cardapio = 1;
+}
+
+message ListaPedidos {
+    repeated ItemCardapio pedidos = 1;
+}
+
+message Posicao {
+    int32 posicao = 1;
+}
+
+message Vazia {}
+
+service ServicoIFome {
+    rpc ListarCardapio (Vazia) returns (ListaDeItensDoCardapio);
+    rpc ConsultarItemCardapio (Posicao) returns (ItemCardapio);
+    rpc AdicionarItemCardapio (ItemCardapio) returns (Vazia);
+    rpc RemoverItemCardapio (Posicao) returns (Vazia);
+    rpc AdicionarPedido (Posicao) returns (Vazia);
+    rpc RemoverPedido (Posicao) returns (Vazia);
+}
+

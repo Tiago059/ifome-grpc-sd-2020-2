@@ -1,0 +1,22 @@
+{
+  "name": "ifome-grpc-sd-2020-2",
+  "version": "1.0.0",
+  "description": "Implementação de um serviço de pedidos de lanches com gRPC",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tiago059/ifome-grpc-sd-2020-2.git"
+  },
+  "author": "Ítalo Tiago",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tiago059/ifome-grpc-sd-2020-2/issues"
+  },
+  "homepage": "https://github.com/Tiago059/ifome-grpc-sd-2020-2#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.7"
+  }
+}
