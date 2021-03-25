@@ -26,7 +26,7 @@ service ServicoIFome {
     rpc ConsultarItemCardapio (Posicao) returns (ItemCardapio);
     rpc AdicionarItemCardapio (ItemCardapio) returns (Vazia);
     rpc RemoverItemCardapio (Posicao) returns (Vazia);
-    rpc AdicionarPedido (Posicao) returns (Vazia);
-    rpc RemoverPedido (Posicao) returns (Vazia);
+    rpc AdicionarPedido (Posicao) returns (ListaPedidos);
+    rpc RemoverPedido (Posicao) returns (ListaPedidos);
 }
 
