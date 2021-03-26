@@ -4,6 +4,7 @@
   "description": "Implementação de um serviço de pedidos de lanches com gRPC",
   "main": "server.js",
   "scripts": {
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,5 +19,9 @@
   "homepage": "https://github.com/Tiago059/ifome-grpc-sd-2020-2#readme",
   "devDependencies": {
     "nodemon": "^2.0.7"
+  },
+  "dependencies": {
+    "@grpc/proto-loader": "^0.5.6",
+    "grpc": "^1.24.6"
   }
 }
