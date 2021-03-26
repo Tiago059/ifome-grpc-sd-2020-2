@@ -3,7 +3,7 @@ syntax = "proto3";
 package ifome;
 
 message ItemCardapio {
-    string descricao = 1;
+    string nome = 1;
     double preco = 2;
 }
 
@@ -19,14 +19,36 @@ message Posicao {
     int32 posicao = 1;
 }
 
+message Nome {
+    string nome = 1;
+}
+
 message Vazia {}
 
 service ServicoIFome {
+    // Cardápio
     rpc ListarCardapio (Vazia) returns (ListaDeItensDoCardapio);
-    rpc ConsultarItemCardapio (Posicao) returns (ItemCardapio);
+    rpc ConsultarItemCardapio (Nome) returns (Posicao);
     rpc AdicionarItemCardapio (ItemCardapio) returns (Vazia);
     rpc RemoverItemCardapio (Posicao) returns (Vazia);
+
+    // Pedido
+    rpc ConsultarItemPedido (Nome) returns (Posicao);
     rpc AdicionarPedido (Posicao) returns (ListaPedidos);
     rpc RemoverPedido (Posicao) returns (ListaPedidos);
 }
 
+// ConsultarItemCardapio/Pedido - função de apoio a outros métodos, é o que fará a busca no vetor de itens/pedidos
+
+/* 
+
+RemoverItemCardapio -> Chama ConsultarItemCardapio passando um nome para retornar
+a posição onde o item do cardápio a ser removido está.
+
+AdicionarPedido -> Chama ConsultarItemCardapio do mesmo que o anterior para
+poder saber qual o item do cardápio a ser inserido.
+
+RemoverPedido -> Chamará ConsultarItemPedido para poder saber
+a posição onde o item do cardápio será removido.
+
+*/
