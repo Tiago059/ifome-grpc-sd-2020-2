@@ -14,6 +14,7 @@ const packageDefinition = protoLoader.loadSync(
         oneofs: true
     });
 
+
 var protoDescriptor = grpc.loadPackageDefinition(packageDefinition).ifome;
 
 const cardapio = [
