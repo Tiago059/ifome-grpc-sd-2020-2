@@ -23,19 +23,23 @@ message Nome {
     string nome = 1;
 }
 
+message UmItemCardapio {
+    ItemCardapio itemCardapio = 1;
+}
+
 message Vazia {}
 
-service ServicoIFome {
+service IFome {
     // Cardápio
     rpc ListarCardapio (Vazia) returns (ListaDeItensDoCardapio);
     rpc ConsultarItemCardapio (Nome) returns (Posicao);
-    rpc AdicionarItemCardapio (ItemCardapio) returns (Vazia);
-    rpc RemoverItemCardapio (Posicao) returns (Vazia);
+    rpc AdicionarItemCardapio (UmItemCardapio) returns (Vazia);
+    // rpc RemoverItemCardapio (Posicao) returns (Vazia);
 
     // Pedido
-    rpc ConsultarItemPedido (Nome) returns (Posicao);
-    rpc AdicionarPedido (Posicao) returns (ListaPedidos);
-    rpc RemoverPedido (Posicao) returns (ListaPedidos);
+    // rpc ConsultarItemPedido (Nome) returns (Posicao);
+    // rpc AdicionarPedido (Posicao) returns (ListaPedidos);
+    // rpc RemoverPedido (Posicao) returns (ListaPedidos);
 }
 
 // ConsultarItemCardapio/Pedido - função de apoio a outros métodos, é o que fará a busca no vetor de itens/pedidos

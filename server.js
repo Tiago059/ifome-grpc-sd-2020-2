@@ -16,40 +16,59 @@ const packageDefinition = protoLoader.loadSync(
 
 var protoDescriptor = grpc.loadPackageDefinition(packageDefinition).ifome;
 
-const servicoIFome = protoDescriptor.servicoIFome;
-
-// Funções de Callback do IFome
+const cardapio = [
+    { nome: "Pizza", preco: 4.70 },
+    { nome: "Sorvete", preco: 2.70 }
+]
 
 function listarCardapio(call, callback) {
     console.log("----- CARDÁPIO -----");
-    callback(null, { itemCardapio: {} });
+    callback(null, { cardapio: cardapio });
 }
 
 function consultarItemCardapio(call, callback) {
     console.log("----- ITEM DO CARDÁPIO -----");
-    console.log("\n" + call.request.posicao);
-    callback(null, { nome: "Abacate", preco: 4.20 });
+
+    var nome = call.request.nome;
+    console.log("\n" + nome);
+
+    let resultado = null;
+
+    for (var i = 0; i < cardapio.length; i++) {
+        if (cardapio[i].nome === nome) {
+            resultado = cardapio[i];
+            break;
+        }
+    }
+
+    if (resultado != null) {
+        callback(null, { itemCardapio: resultado });
+    }
+    else {
+        callback(null, { erro: "Item não encontrado..." });
+    }
+
 }
 
-function adicionarItemCardapio(call, callback) {
-    var cardapio = {
-        nome: call.request.nome,
-        preco: call.request.preco
-    };
 
-    console.log("----- NOVO ITEM DO CARDÁPIO -----");
-    console.log("\n" + JSON.stringify(cardapio));
+function adicionarItemCardapio(call, callback) {
+    const itemCardapio = call.request.itemCardapio;
+
+    cardapio.push(itemCardapio);
+
     callback(null, {});
 }
 
 const server = new grpc.Server();
 
-server.addService(ServicoIFome.service,
-    {
-        ListarCardapio: listarCardapio,
-        ConsultarItemCardapio: consultarItemCardapio,
-        AdicionarItemCardapio: adicionarItemCardapio
-    });
+server.addService(protoDescriptor.IFome.service, {
+    ListarCardapio: listarCardapio,
+    ConsultarItemCardapio: consultarItemCardapio,
+    AdicionarItemCardapio: adicionarItemCardapio
+})
 
-server.bindAsync('0.0.0.0:50051', grpc.ServerCredentials.createInsecure());
+server.bind('0.0.0.0:50051', grpc.ServerCredentials.createInsecure());
+
 server.start();
+
+console.log("servidor iniciado");
