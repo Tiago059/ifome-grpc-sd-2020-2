@@ -18,8 +18,9 @@ const packageDefinition = protoLoader.loadSync(
 var protoDescriptor = grpc.loadPackageDefinition(packageDefinition).ifome;
 
 const cardapio = [
-    { nome: "Pizza", preco: 4.70 },
-    { nome: "Sorvete", preco: 2.70 }
+    { nome: "Pizza", preco: 15.06 },
+    { nome: "Sorvete", preco: 2.09 },
+    { nome: "Ketchup", preco: 0.15 }
 ]
 
 function listarCardapio(call, callback) {
