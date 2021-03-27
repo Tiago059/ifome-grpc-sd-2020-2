@@ -73,4 +73,4 @@ server.bind('0.0.0.0:50051', grpc.ServerCredentials.createInsecure());
 
 server.start();
 
-console.log("servidor iniciado");
+console.log("Servidor iniciado na porta 50051, mas ninguém liga...");
