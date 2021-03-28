@@ -1,3 +1,10 @@
+const readline = require('readline');
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+});
+
 const grpc = require('grpc');
 
 const PROTO_PATH = "./ifome.proto";
@@ -20,11 +27,13 @@ var protoDescriptor = grpc.loadPackageDefinition(packageDefinition).ifome;
 const cardapio = [
     { nome: "Pizza", preco: 15.06 },
     { nome: "Sorvete", preco: 2.09 },
-    { nome: "Ketchup", preco: 0.15 }
+    { nome: "Lasanha", preco: 18.12 }
 ]
 
 function listarCardapio(call, callback) {
-    console.log("----- CARDÁPIO -----");
+
+    console.log("-> Exibindo Cardápio!");
+
     callback(null, { cardapio: cardapio });
 }
 
@@ -54,11 +63,13 @@ function consultarItemCardapio(call, callback) {
 
 
 function adicionarItemCardapio(call, callback) {
-    const itemCardapio = call.request.itemCardapio;
+    console.log("-> Adicionando novo item ao Cardápio!");
 
-    cardapio.push(itemCardapio);
+    console.log(call.request);
 
+    cardapio.push(call.request);
     callback(null, {});
+
 }
 
 const server = new grpc.Server();
