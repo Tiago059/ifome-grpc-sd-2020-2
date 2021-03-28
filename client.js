@@ -39,18 +39,18 @@ function menu() {
     var resposta = readlineSync.question("Digite a opcao: ");
 
     switch (resposta) {
-        case "1": lc(); break;
-        case "2": adc(); break;
+        case "1": listarCardapio(); break;
+        case "2": adicionarItemCardapio(); break;
+        case "3": ab(); menu(); break;
         case "0": console.log("Lembramos aos nossos clientes que os dados não ficam salvos em disco. Até mais!"); break;
-        default: console.log("???");
     }
 }
 
-// imprimirMenu();
+function ab() {
+    console.log("aqui");
+}
 
-// var resposta = readlineSync.question("Digite a opcao: ");
-
-function lc() {
+function listarCardapio() {
     client.ListarCardapio({}, function (err, response) {
         if (err != null) {
             console.log("Ocorreu um erro invocando o procedimento ListarCardapio.\n Detalhes: " + JSON.stringify(err.details));
@@ -63,14 +63,13 @@ function lc() {
         for (var i = 0; i < cardapio.length; i++) {
             console.log(cardapio[i].nome + "\t\tR$ " + cardapio[i].preco);
         }
-
         console.log("\n");
 
         menu();
     });
 }
 
-function adc() {
+function adicionarItemCardapio() {
     const nomeItem = readlineSync.question("Digite o nome do item: ");
     const precoItem = readlineSync.question("Digite o preco do item: ");
 
@@ -85,7 +84,7 @@ function adc() {
             console.log("Ocorreu um erro invocando o procedimento AdicionarItemCardapio.\n Detalhes: " + JSON.stringify(err.details));
             return;
         }
-        console.log("Novo item adicionado com sucesso! Cheque o Cardápio para ver.");
+        console.log("Novo item adicionado com sucesso! Cheque o Cardápio para ver.\n");
         menu();
     });
 
