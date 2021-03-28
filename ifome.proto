@@ -33,7 +33,7 @@ service IFome {
     // Cardápio
     rpc ListarCardapio (Vazia) returns (ListaDeItensDoCardapio);
     rpc ConsultarItemCardapio (Nome) returns (Posicao);
-    rpc AdicionarItemCardapio (UmItemCardapio) returns (Vazia);
+    rpc AdicionarItemCardapio (ItemCardapio) returns (Vazia);
     // rpc RemoverItemCardapio (Posicao) returns (Vazia);
 
     // Pedido
