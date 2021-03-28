@@ -62,13 +62,41 @@ function consultarItemCardapio(call, callback) {
 }
 
 
+
 function adicionarItemCardapio(call, callback) {
     console.log("-> Adicionando novo item ao Cardápio!");
-
     console.log(call.request);
 
     cardapio.push(call.request);
     callback(null, {});
+
+}
+
+function removerItemCardapio(call, callback) {
+    console.log("-> Removendo item ao Cardápio!");
+    console.log(call.request.nome);
+
+    var resultado = 0;
+
+    for (var i = 0; i < cardapio.length; i++) {
+        if (cardapio[i].nome === call.request.nome) {
+            cardapio.splice(i, 1);
+            resultado = 1;
+            break;
+        }
+    }
+
+    if (resultado === 1) {
+        console.log("OK!");
+        callback(null, {});
+
+
+    }
+    else {
+        console.log("Item não encontrado/cardápio vazio.");
+        callback({}, "erro");
+    }
+
 
 }
 
@@ -77,7 +105,8 @@ const server = new grpc.Server();
 server.addService(protoDescriptor.IFome.service, {
     ListarCardapio: listarCardapio,
     ConsultarItemCardapio: consultarItemCardapio,
-    AdicionarItemCardapio: adicionarItemCardapio
+    AdicionarItemCardapio: adicionarItemCardapio,
+    RemoverItemCardapio: removerItemCardapio
 })
 
 server.bind('0.0.0.0:50051', grpc.ServerCredentials.createInsecure());

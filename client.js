@@ -34,6 +34,7 @@ function menu() {
     console.log("Obs: Não somos uma cópia do iFood.\n");
     console.log("1 - Ver Cardápio");
     console.log("2 - Adicionar Item ao Cardápio");
+    console.log("3 - Remover Item do Cardápio")
     console.log("0 - Sair");
 
     var resposta = readlineSync.question("Digite a opcao: ");
@@ -41,13 +42,9 @@ function menu() {
     switch (resposta) {
         case "1": listarCardapio(); break;
         case "2": adicionarItemCardapio(); break;
-        case "3": ab(); menu(); break;
+        case "3": removerItemCardapio(); break;
         case "0": console.log("Lembramos aos nossos clientes que os dados não ficam salvos em disco. Até mais!"); break;
     }
-}
-
-function ab() {
-    console.log("aqui");
 }
 
 function listarCardapio() {
@@ -84,69 +81,30 @@ function adicionarItemCardapio() {
             console.log("Ocorreu um erro invocando o procedimento AdicionarItemCardapio.\n Detalhes: " + JSON.stringify(err.details));
             return;
         }
+
         console.log("Novo item adicionado com sucesso! Cheque o Cardápio para ver.\n");
         menu();
     });
 
 }
 
-menu();
+function removerItemCardapio() {
+    const nomeItem = readlineSync.question("Digite o nome do item a ser removido: ");
 
-/*
+    client.RemoverItemCardapio({ nome: nomeItem }, function (err, response) {
 
+        if (err != null) {
+            console.log("Item não encontrado ou cardápio está vazio.");
+            menu();
+            return;
+        }
+        else {
+            console.log("Item removido com sucesso! Cheque o Cardápio para ver.\n");
+            menu();
+        }
 
-while (true) {
-    var resposta = readlineSync.question("Digite a opcao: ");
+    });
 
-    console.log(resposta);
-
-    console.log("CUUU");
-    if (resposta === "1") {
-        console.log("AAAAA")
-        client.ListarCardapio({}, function (err, response) {
-            if (err != null) {
-                console.log("Ocorreu um erro invocando o procedimento ListarCardapio.\n Detalhes: " + JSON.stringify(err.details));
-                return;
-            }
-
-            // Pegamos o resultado da requisição, que no nosso caso é aquela variável cardápio...
-            const cardapio = response.cardapio;
-            console.log("----- CARDÁPIO -------");
-            for (var i = 0; i < cardapio.length; i++) {
-                console.log(cardapio[i].nome + "\t\tR$ " + cardapio[i].preco);
-            }
-
-            console.log("\n");
-        });
-        console.log("BOSTA");
-        sleep(2);
-        console.log("querro morrer");
-
-    }
-    else if (resposta === "2") {
-        console.log("AAAAA4")
-        var nomeItem = readlineSync.question("Digite o nome do item: ");
-        var precoItem = readlineSync.question("Digite o preco do item: ");
-
-        client.AdicionarItemCardapio({ nome: nomeItem, preco: precoItem }, function (err, response) {
-            if (err != null) {
-                console.log("Ocorreu um erro invocando o procedimento AdicionarItemCardapio.\n Detalhes: " + JSON.stringify(err.details));
-                return;
-            }
-            console.log("Novo item adicionado com sucesso! Cheque o Cardápio para ver.");
-        });
-    }
-    else if (resposta === "0") {
-        console.log("Lembramos aos nossos clientes que os dados não ficam salvos em disco. Até mais!");
-        break;
-    }
-    else {
-        console.log("Foi mal, não entendi nada meu brother. Tenta aí denovo.");
-    }
-
-    imprimirMenu();
 }
 
-*/
-
-
+menu();
