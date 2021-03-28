@@ -29,12 +29,21 @@ function sleep(seconds) {
     } while (currentDate - date < seconds * 1000);
 }
 
-function imprimirMenu() {
+function menu() {
     console.log("------- IFOME --------");
     console.log("Obs: Não somos uma cópia do iFood.\n");
     console.log("1 - Ver Cardápio");
     console.log("2 - Adicionar Item ao Cardápio");
     console.log("0 - Sair");
+
+    var resposta = readlineSync.question("Digite a opcao: ");
+
+    switch (resposta) {
+        case "1": lc(); break;
+        case "2": adc(); break;
+        case "0": console.log("Lembramos aos nossos clientes que os dados não ficam salvos em disco. Até mais!"); break;
+        default: console.log("???");
+    }
 }
 
 // imprimirMenu();
@@ -57,7 +66,7 @@ function lc() {
 
         console.log("\n");
 
-        //resposta = readlineSync.question("Digite a opcao: ");
+        menu();
     });
 }
 
@@ -77,15 +86,12 @@ function adc() {
             return;
         }
         console.log("Novo item adicionado com sucesso! Cheque o Cardápio para ver.");
-        lc();
+        menu();
     });
 
 }
 
-adc();
-
-
-
+menu();
 
 /*
 
