@@ -62,6 +62,25 @@ function menu() {
     }
 }
 
+function carregarCardapio() {
+    sleep(1)
+    client.ListarCardapio({}, function (err, response) {
+        sleep(1)
+        if (err != null) {
+            console.log("Ocorreu um erro invocando o procedimento ListarCardapio.\n Detalhes: " + JSON.stringify(err.details));
+            return;
+        }
+        // Pegamos o resultado da requisição, que no nosso caso é aquela variável cardápio...
+        cardapio = response.cardapio;
+        if(cardapio == null){
+            console.log("Programa iniciado com erro. Por favor reinicie")
+        }else{
+            console.log("Base de dados carregada com sucesso.")
+        }
+        menu()
+    });
+}
+
 function listarCardapio() {
     client.ListarCardapio({}, function (err, response) {
         if (err != null) {
@@ -91,6 +110,7 @@ function adicionarItemCardapio() {
             console.log("Ocorreu um erro invocando o procedimento AdicionarItemCardapio.\n Detalhes: " + JSON.stringify(err.details));
             return;
         }
+        cardapio = response.cardapio;
         console.log("Novo item adicionado com sucesso! Cheque o Cardápio para ver.\n");
         menu();
     });
@@ -105,11 +125,11 @@ function removerItemCardapio() {
             return;
         }
         else {
+            cardapio = response.cardapio;
             console.log("Item removido com sucesso! Cheque o Cardápio para ver.\n");
             menu();
         }
     });
-
 }
 
 function adicionarPedido(){
@@ -137,9 +157,7 @@ function adicionarPedido(){
         }else{
             menu();
         }        
-    })
-
-    
+    })    
 }
 
 function consultarPedido(){
@@ -241,4 +259,4 @@ function consultarItemCardapio(){
         menu();
     })
 }
-menu();
+carregarCardapio()
