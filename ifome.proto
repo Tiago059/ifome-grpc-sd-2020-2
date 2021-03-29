@@ -11,10 +11,6 @@ message ListaDeItensDoCardapio {
     repeated ItemCardapio cardapio = 1;
 }
 
-message ListaPedidos {
-    repeated ItemCardapio pedidos = 1;
-}
-
 message Posicao {
     int32 posicao = 1;
 }
@@ -27,19 +23,36 @@ message UmItemCardapio {
     ItemCardapio itemCardapio = 1;
 }
 
+message ItemPedido {
+    int32 numero = 1;
+    string nome = 2;
+    double preco = 3;
+    int32 quantidade = 4;
+}
+
+message Pedido {
+    repeated ItemPedido pedido = 1;
+}
+
+message ListaPedido {
+    repeated Pedido pedidos = 1;
+}
+
 message Vazia {}
 
 service IFome {
     // Cardápio
     rpc ListarCardapio (Vazia) returns (ListaDeItensDoCardapio);
-    rpc ConsultarItemCardapio (Nome) returns (Posicao);
+    rpc ConsultarItemCardapio (Posicao) returns (ItemCardapio);
     rpc AdicionarItemCardapio (ItemCardapio) returns (Vazia);
     rpc RemoverItemCardapio (Nome) returns (Vazia);
 
     // Pedido
-    // rpc ConsultarItemPedido (Nome) returns (Posicao);
-    // rpc AdicionarPedido (Posicao) returns (ListaPedidos);
-    // rpc RemoverPedido (Posicao) returns (ListaPedidos);
+    // rpc ConsultarItemPedido (Posicao) returns (Posicao);
+    rpc AdicionarPedido (Pedido) returns (Posicao);
+    // rpc RemoverPedido (Nome) returns (ListaPedidos);
+    rpc ConsultarPedido (Posicao) returns (Pedido);
+    rpc EntregarPedido (Pedido) returns (Posicao);
 }
 
 // ConsultarItemCardapio/Pedido - função de apoio a outros métodos, é o que fará a busca no vetor de itens/pedidos
