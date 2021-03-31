@@ -19,10 +19,6 @@ message Nome {
     string nome = 1;
 }
 
-message UmItemCardapio {
-    ItemCardapio itemCardapio = 1;
-}
-
 message ItemPedido {
     int32 numero = 1;
     string nome = 2;
@@ -34,38 +30,15 @@ message Pedido {
     repeated ItemPedido pedido = 1;
 }
 
-message ListaPedido {
-    repeated Pedido pedidos = 1;
-}
-
 message Vazia {}
 
 service IFome {
     // Cardápio
     rpc ListarCardapio (Vazia) returns (ListaDeItensDoCardapio);
-    rpc ConsultarItemCardapio (Posicao) returns (ItemCardapio);
     rpc AdicionarItemCardapio (ItemCardapio) returns (ListaDeItensDoCardapio);
     rpc RemoverItemCardapio (Nome) returns (ListaDeItensDoCardapio);
 
-    // Pedido
-    // rpc ConsultarItemPedido (Posicao) returns (Posicao);
-    rpc AdicionarPedido (Pedido) returns (Posicao);
-    // rpc RemoverPedido (Nome) returns (ListaPedidos);
+    rpc AdicionarPedido (Pedido) returns (Posicao);  
     rpc ConsultarPedido (Posicao) returns (Pedido);
     rpc EntregarPedido (Pedido) returns (Posicao);
 }
-
-// ConsultarItemCardapio/Pedido - função de apoio a outros métodos, é o que fará a busca no vetor de itens/pedidos
-
-/* 
-
-RemoverItemCardapio -> Chama ConsultarItemCardapio passando um nome para retornar
-a posição onde o item do cardápio a ser removido está.
-
-AdicionarPedido -> Chama ConsultarItemCardapio do mesmo que o anterior para
-poder saber qual o item do cardápio a ser inserido.
-
-RemoverPedido -> Chamará ConsultarItemPedido para poder saber
-a posição onde o item do cardápio será removido.
-
-*/

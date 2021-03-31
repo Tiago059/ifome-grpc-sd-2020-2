@@ -39,20 +39,6 @@ function listarCardapio(call, callback) {
     callback(null, { cardapio: cardapio });
 }
 
-function consultarItemCardapio(call, callback) {
-    console.log("----- ITEM DO CARDÁPIO -----");
-
-    var posicao = call.request.posicao; 
-    resultado = cardapio[posicao]
-
-    if (resultado != null) {
-        callback(null, resultado);
-    }
-    else {
-        callback(null, { erro: "Item não encontrado..." });
-    }
-}
-
 function adicionarItemCardapio(call, callback) {
     console.log("-> Adicionando novo item ao Cardápio!");
 

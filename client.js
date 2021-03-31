@@ -57,8 +57,7 @@ function menu() {
         case "5": removerItemPedido(); break;
         case "6": adicionarPedido(); break;
         case "7": consultarPedido(); break;
-        case "8": consultarItemCardapio(); break;
-        case "0": console.log("Lembramos aos nossos clientes que os dados não ficam salvos em disco. Até mais!"); break;
+        case "0": console.log("Lembramos aos nossos clientes que os dados não ficam salvos em disco. Até mais!"); client.close(); break;
     }
 }
 
@@ -247,16 +246,4 @@ function removerItemPedido(){
     menu();
 }
 
-function consultarItemCardapio(){
-    const numeroItem = prompt("Digite o numero do item no cardápio: ");
-    client.ConsultarItemCardapio({posicao:numeroItem}, function(err, response){
-        if (err != null){
-            console.log("Error")
-            menu()
-            return;
-        }
-        console.log(response)
-        menu();
-    })
-}
 carregarCardapio()
