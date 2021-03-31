@@ -21,6 +21,11 @@ const protoDescriptor = grpc.loadPackageDefinition(packageDefinition).ifome;
 
 const client = new protoDescriptor.IFome('localhost:50051', grpc.credentials.createInsecure());
 
+
+/**
+ * Simula pausa na execução, simulando uma espera.
+ * @returns {} Retorno vazio em caso de erro.
+ */
 function sleep(seconds) {
     const date = Date.now();
     let currentDate = null;
@@ -35,6 +40,11 @@ cliente_pedido = {pedido: [
     { numero: 0, nome: "Pizza", preco: 15.06 , quantidade: 4}
 ]}
 
+
+/**
+ * Interface de usuário para execução de instruições.
+ * @returns {} Retorno vazio em caso de erro.
+ */
 function menu() {
     console.log("------- IFOME --------");
     console.log("Obs: Não somos uma cópia do iFood.\n");
@@ -61,6 +71,10 @@ function menu() {
     }
 }
 
+/**
+ * Carrega cardápio localmente no cliente a partir de requisição da ultima versão do cardápio no servidor.
+ * @returns {} Retorno vazio em caso de erro.
+ */
 function carregarCardapio() {
     sleep(2)
     client.ListarCardapio({}, function (err, response) {
@@ -79,6 +93,10 @@ function carregarCardapio() {
     });
 }
 
+/**
+ * Lista cardápio a partir de requisição da ultima versão do cardápio no servidor.
+ * @returns {} Retorno vazio em caso de erro.
+ */
 function listarCardapio() {
     client.ListarCardapio({}, function (err, response) {
         if (err != null) {
@@ -94,6 +112,10 @@ function listarCardapio() {
     });
 }
 
+/**
+ * Adiciona item ao cardápio no servido, com atualização do cardápio local do cliente.
+ * @returns {} Retorno vazio em caso de erro.
+ */
 function adicionarItemCardapio() {
     const nomeItem = prompt("Digite o nome do item: ");
     const precoItem = prompt("Digite o preco do item: ");
@@ -113,6 +135,10 @@ function adicionarItemCardapio() {
     });
 }
 
+/**
+ * Remove item do cardápio no servido, com atualização do cardápio local do cliente.
+ * @returns {} Retorno vazio em caso de erro.
+ */
 function removerItemCardapio() {
     const nomeItem = prompt("Digite o nome do item a ser removido: ");
     client.RemoverItemCardapio({ nome: nomeItem }, function (err, response) {
@@ -129,6 +155,10 @@ function removerItemCardapio() {
     });
 }
 
+/**
+ * Envia pedido montado localmente no cliente para adição em lista de pedidos no servidor.
+ * @returns {} Retorno vazio em caso de erro.
+ */
 function adicionarPedido(){
     const Pedido = cliente_pedido
     const entregar = prompt("Digite 'S' case deseje separar para entrega, 'N' caso contrário; ");  
@@ -157,6 +187,10 @@ function adicionarPedido(){
     })    
 }
 
+/**
+ * Consulta pedido no servidor a partir de número de retorno ao enviar pedido.
+ * @returns {} Retorno vazio em caso de erro.
+ */
 function consultarPedido(){
     const numero_pedido = prompt('Digite o número do pedido que deseja consultar:');
     client.ConsultarPedido({posicao:numero_pedido}, function(err, response){
@@ -172,6 +206,11 @@ function consultarPedido(){
         menu();        
     });
 }
+
+/**
+ * Adicionar item a lista local de pedidos, realizando incremento quando item já existente.
+ * @returns {} Retorno vazio em caso de erro.
+ */
 function adicionarItemPedido(){   
     console.log("\n----- CARDÁPIO -------");
     for (const [index, element] of cardapio.entries()) {
@@ -215,6 +254,10 @@ function adicionarItemPedido(){
     menu();
 }
 
+/**
+ * Remove item da lista local de pedidos a partir do decremento da quantidade de determinado item.
+ * @returns {} Retorno vazio em caso de erro.
+ */
 function removerItemPedido(){   
     console.log("\n----- PEDIDO -----");
     pedido = cliente_pedido.pedido

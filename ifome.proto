@@ -36,7 +36,8 @@ service IFome {
     rpc ListarCardapio (Vazia) returns (ListaDeItensDoCardapio);
     rpc AdicionarItemCardapio (ItemCardapio) returns (ListaDeItensDoCardapio);
     rpc RemoverItemCardapio (Nome) returns (ListaDeItensDoCardapio);
-    rpc AdicionarPedido (Pedido) returns (Posicao);  
-    rpc ConsultarPedido (Posicao) returns (Pedido);
+    rpc AdicionarPedido (Pedido) returns (Posicao);
     rpc EntregarPedido (Pedido) returns (Posicao);
+    rpc ConsultarPedido (Posicao) returns (Pedido);
+    
 }
