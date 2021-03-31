@@ -102,7 +102,6 @@ const server = new grpc.Server();
 
 server.addService(protoDescriptor.IFome.service, {
     ListarCardapio: listarCardapio,
-    ConsultarItemCardapio: consultarItemCardapio,
     AdicionarItemCardapio: adicionarItemCardapio,
     RemoverItemCardapio: removerItemCardapio,
     AdicionarPedido: adicionarPedido,

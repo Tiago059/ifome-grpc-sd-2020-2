@@ -33,11 +33,9 @@ message Pedido {
 message Vazia {}
 
 service IFome {
-    // Cardápio
     rpc ListarCardapio (Vazia) returns (ListaDeItensDoCardapio);
     rpc AdicionarItemCardapio (ItemCardapio) returns (ListaDeItensDoCardapio);
     rpc RemoverItemCardapio (Nome) returns (ListaDeItensDoCardapio);
-
     rpc AdicionarPedido (Pedido) returns (Posicao);  
     rpc ConsultarPedido (Posicao) returns (Pedido);
     rpc EntregarPedido (Pedido) returns (Posicao);
