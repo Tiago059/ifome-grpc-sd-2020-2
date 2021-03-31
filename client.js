@@ -69,7 +69,6 @@ function carregarCardapio() {
             console.log("Programa iniciado com erro. Por favor reinicie.\n");
             return;
         }
-        // Pegamos o resultado da requisição, que no nosso caso é aquela variável cardápio...
         cardapio = response.cardapio;
         if(cardapio == null){
             console.log("Programa iniciado com erro. Por favor reinicie")
@@ -86,12 +85,8 @@ function listarCardapio() {
             console.log("Ocorreu um erro invocando o procedimento ListarCardapio.\n Detalhes: " + JSON.stringify(err.details));
             return;
         }
-        // Pegamos o resultado da requisição, que no nosso caso é aquela variável cardápio...
         cardapio = response.cardapio;
         console.log("----- CARDÁPIO -------");
-        // for (var i = 0; i < cardapio.length; i++) {
-        //     console.log(cardapio[i].nome + "\t\tR$ " + cardapio[i].preco);
-        // }
         for (const [index, element] of cardapio.entries()) {
             console.log(""+(index+1)+" - " + element.nome + "\t\tR$ " + element.preco);
         }
@@ -179,9 +174,6 @@ function consultarPedido(){
 }
 function adicionarItemPedido(){   
     console.log("\n----- CARDÁPIO -------");
-    // for (var i = 0; i < cardapio.length; i++) {
-    //     console.log(cardapio[i].nome + "\t\tR$ " + cardapio[i].preco);
-    // }
     for (const [index, element] of cardapio.entries()) {
         console.log(""+(index+1)+" - " + element.nome + "\t\tR$ " + element.preco);
     }
@@ -216,10 +208,7 @@ function adicionarItemPedido(){
     
     console.log("----- PEDIDO -----")
     pedido = cliente_pedido.pedido
-    // for (i in pedido){
-    //     console.log(pedido[i].nome + "\t\tR$ " + pedido[i].preco + "\t\tQtd.: " + pedido[i].quantidade);                
-    // }
-
+ 
     for (const [index, element] of pedido.entries()) {
         console.log(""+(index+1)+" - " + element.nome + "\t\tR$ " +element.preco + "\t\tQtd.: " + element.quantidade);
     }
@@ -229,9 +218,7 @@ function adicionarItemPedido(){
 function removerItemPedido(){   
     console.log("\n----- PEDIDO -----");
     pedido = cliente_pedido.pedido
-    // for (i in pedido){
-    //     console.log(pedido[i].nome + "\t\tR$ " + pedido[i].preco + "\t\tQtd.: " + pedido[i].quantidade);                
-    // }
+
     for (const [index, element] of pedido.entries()) {
         console.log(""+(index+1)+" - " + element.nome + "\t\tR$ " +element.preco + "\t\tQtd.: " + element.quantidade);
     }
