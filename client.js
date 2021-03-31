@@ -62,11 +62,11 @@ function menu() {
 }
 
 function carregarCardapio() {
-    sleep(1)
+    sleep(2)
     client.ListarCardapio({}, function (err, response) {
         sleep(1)
         if (err != null) {
-            console.log("Ocorreu um erro invocando o procedimento ListarCardapio.\n Detalhes: " + JSON.stringify(err.details));
+            console.log("Programa iniciado com erro. Por favor reinicie.\n");
             return;
         }
         // Pegamos o resultado da requisição, que no nosso caso é aquela variável cardápio...
@@ -89,8 +89,11 @@ function listarCardapio() {
         // Pegamos o resultado da requisição, que no nosso caso é aquela variável cardápio...
         cardapio = response.cardapio;
         console.log("----- CARDÁPIO -------");
-        for (var i = 0; i < cardapio.length; i++) {
-            console.log(cardapio[i].nome + "\t\tR$ " + cardapio[i].preco);
+        // for (var i = 0; i < cardapio.length; i++) {
+        //     console.log(cardapio[i].nome + "\t\tR$ " + cardapio[i].preco);
+        // }
+        for (const [index, element] of cardapio.entries()) {
+            console.log(""+(index+1)+" - " + element.nome + "\t\tR$ " + element.preco);
         }
         menu();
     });
@@ -133,7 +136,7 @@ function removerItemCardapio() {
 
 function adicionarPedido(){
     const Pedido = cliente_pedido
-    const entregar = prompt("Digite 'S' case deseje separar para entrega, 'N' caso contrário.");  
+    const entregar = prompt("Digite 'S' case deseje separar para entrega, 'N' caso contrário; ");  
     client.AdicionarPedido(Pedido, function (err, response) {
         if (err != null){
             console.log("Ocorreu um erro invocando o procedimento AdicionarPedido.\n Detalhes: " + JSON.stringify(err.details));
@@ -141,8 +144,8 @@ function adicionarPedido(){
             return;
         }
         const numero_pedido = response.posicao
-        console.log(`Pedido Concluído com sucesso. O número do seu pedido é: ${numero_pedido}.\n`);
-        if (entregar == 's'){
+        console.log(`Pedido enviado com sucesso. O número do seu pedido é: ${numero_pedido}.\n`);
+        if ((entregar == 'S') || (entregar == 's')){
             client.EntregarPedido(Pedido, function (err, response) {
                 if (err != null){
                     console.log("Ocorreu um erro invocando o procedimento EntregarPedido.\n Detalhes: " + JSON.stringify(err.details));
@@ -176,8 +179,11 @@ function consultarPedido(){
 }
 function adicionarItemPedido(){   
     console.log("\n----- CARDÁPIO -------");
-    for (var i = 0; i < cardapio.length; i++) {
-        console.log(cardapio[i].nome + "\t\tR$ " + cardapio[i].preco);
+    // for (var i = 0; i < cardapio.length; i++) {
+    //     console.log(cardapio[i].nome + "\t\tR$ " + cardapio[i].preco);
+    // }
+    for (const [index, element] of cardapio.entries()) {
+        console.log(""+(index+1)+" - " + element.nome + "\t\tR$ " + element.preco);
     }
     const numeroItem = (parseInt(prompt("Digite o numero do item no cardápio: ")))-1
     const quantidadeItem = parseInt(prompt("Digite a quantidade do item: "))
@@ -210,8 +216,12 @@ function adicionarItemPedido(){
     
     console.log("----- PEDIDO -----")
     pedido = cliente_pedido.pedido
-    for (i in pedido){
-        console.log(pedido[i].nome + "\t\tR$ " + pedido[i].preco + "\t\tQtd.: " + pedido[i].quantidade);                
+    // for (i in pedido){
+    //     console.log(pedido[i].nome + "\t\tR$ " + pedido[i].preco + "\t\tQtd.: " + pedido[i].quantidade);                
+    // }
+
+    for (const [index, element] of pedido.entries()) {
+        console.log(""+(index+1)+" - " + element.nome + "\t\tR$ " +element.preco + "\t\tQtd.: " + element.quantidade);
     }
     menu();
 }
@@ -219,8 +229,11 @@ function adicionarItemPedido(){
 function removerItemPedido(){   
     console.log("\n----- PEDIDO -----");
     pedido = cliente_pedido.pedido
-    for (i in pedido){
-        console.log(pedido[i].nome + "\t\tR$ " + pedido[i].preco + "\t\tQtd.: " + pedido[i].quantidade);                
+    // for (i in pedido){
+    //     console.log(pedido[i].nome + "\t\tR$ " + pedido[i].preco + "\t\tQtd.: " + pedido[i].quantidade);                
+    // }
+    for (const [index, element] of pedido.entries()) {
+        console.log(""+(index+1)+" - " + element.nome + "\t\tR$ " +element.preco + "\t\tQtd.: " + element.quantidade);
     }
     const numeroItem = (parseInt(prompt("Digite o numero do item do pedido: ")))-1
     const quantidadeItem = parseInt(prompt("Digite a quantidade do pedido: "))

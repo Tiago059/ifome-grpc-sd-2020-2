@@ -35,7 +35,7 @@ let pedidos = []
 let entregar = []
 
 function listarCardapio(call, callback) {
-    console.log("-> Exibindo Cardápio!");    
+    console.log("Carregando Cardápio\n") 
     callback(null, { cardapio: cardapio });
 }
 
@@ -43,7 +43,6 @@ function adicionarItemCardapio(call, callback) {
     console.log("-> Adicionando novo item ao Cardápio!");
 
     cardapio.push(call.request);
-    //callback(null, {});
     callback(null, { cardapio: cardapio });
 }
 
@@ -62,7 +61,6 @@ function removerItemCardapio(call, callback) {
 
     if (resultado === 1) {
         console.log("OK!");
-        //callback(null, {});
         callback(null, { cardapio: cardapio });
     }
     else {
